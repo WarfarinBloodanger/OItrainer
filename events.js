@@ -20,7 +20,37 @@
       this._ctx = ctx || {};
       const {game, PROVINCES, constants, utils, log} = ctx;
       if(!game || !utils) return;
-
+      this.register({
+        id: 'anonymization',
+        name: '认知异常',
+        description: '无法分辨学生',
+        check: function(c) {
+          return true;
+        },
+        run: function(c) {
+          try {
+            for(let i = 0; i < c.game.students.length; i++) {
+              const student = c.game.students[i];
+              if(student && student.name) {
+                student.name = "???";
+              }
+            }
+            
+            const msg = '认知异常导致无法区分学生';
+            c.log && c.log(`[认知异常] ${msg}`);
+            window.pushEvent && window.pushEvent({ 
+              name: '认知异常', 
+              description: msg, 
+              week: c.game.week 
+            });
+            
+          } catch(e) {
+            console.error('认知异常 error', e);
+          }
+          
+          return null;
+        }
+      });
       // 台风（沿海）
       this.register({
         id: 'typhoon',
