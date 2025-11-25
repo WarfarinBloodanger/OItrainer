@@ -25,6 +25,7 @@
         name: '认知异常',
         description: '无法分辨学生',
         check: function(c) {
+           console.log("Checking anonymization");
           return true;
         },
         run: function(c) {
