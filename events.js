@@ -1299,6 +1299,7 @@
 
     // 主调度：逐个事件执行 check/run
     checkRandomEvents(game){
+      console.log("Checking random events");
       const ctx = this._ctx || {};
       const c = {
         game,
